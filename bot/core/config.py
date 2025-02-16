@@ -13,6 +13,7 @@ class BotSettings(EnvBaseSettings):
 class CacheSettings(EnvBaseSettings):
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
+    REDIS_DB: int = 5
 
 
 class DatabaseSettings(EnvBaseSettings):
@@ -20,7 +21,8 @@ class DatabaseSettings(EnvBaseSettings):
 
 
 class LLMSettings(EnvBaseSettings):
-    YANDEX_API_KEY: str
+    YCLOUD_API_KEY: str
+    YCLOUD_FOLDER_ID: str
 
 
 class Settings(BotSettings, CacheSettings, DatabaseSettings, LLMSettings):

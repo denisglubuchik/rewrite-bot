@@ -13,7 +13,7 @@ redis = Redis(
     connection_pool=ConnectionPool(
         host=settings.REDIS_HOST,
         port=settings.REDIS_PORT,
-        db=0
+        db=settings.REDIS_DB
     )
 )
 storage = RedisStorage(
