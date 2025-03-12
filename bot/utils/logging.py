@@ -10,7 +10,7 @@ def setup_logging_base_config():
 
     # Настройка базового конфигурации логирования
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s() - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
         handlers=[

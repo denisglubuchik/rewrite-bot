@@ -1,3 +1,6 @@
+import json
+
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,12 +23,23 @@ class DatabaseSettings(EnvBaseSettings):
     DB_PATH: str = "test.db"
 
 
-class LLMSettings(EnvBaseSettings):
+class LLMSettings(BaseSettings):
     YCLOUD_API_KEY: str
     YCLOUD_FOLDER_ID: str
+    ASSISTANT_ID: str
+    MODEL_NAME: str
+    MODEL_VERSION: str
+    TEMPERATURE: float
+
+    @classmethod
+    def from_json(cls, path: str = "llm_config.json"):
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return cls(**data)
 
 
-class Settings(BotSettings, CacheSettings, DatabaseSettings, LLMSettings):
-    pass
+class Settings(BotSettings, CacheSettings, DatabaseSettings):
+    LLM: LLMSettings = Field(default_factory=LLMSettings.from_json)
+
 
 settings = Settings()

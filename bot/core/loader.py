@@ -6,8 +6,9 @@ from aiogram.fsm.storage.redis import RedisStorage
 from redis.asyncio import Redis, ConnectionPool
 
 from bot.core.config import settings
+from llm.caller import LLMCaller
 
-bot = Bot(token=settings.BOT_TOKEN, efault=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(token=settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 redis = Redis(
     connection_pool=ConnectionPool(
@@ -22,3 +23,5 @@ storage = RedisStorage(
 )
 
 dp = Dispatcher(storage=storage)
+
+llm_caller = LLMCaller(settings.LLM)
