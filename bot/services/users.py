@@ -1,6 +1,6 @@
 import logging
 
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 from bot.db.engine import async_session_maker
 from bot.db.models.users import UserModel, UserThreadsModel
@@ -40,6 +40,9 @@ class UserThreadsService(BaseService[UserThreadsModel]):
     @classmethod
     async def create_user_thread(cls, thread_id: str, user_id: int) -> model:
         async with async_session_maker() as session:
+            await session.execute(
+                delete(cls.model).where(cls.model.user_id == user_id)
+            )
             thread = cls.model(thread_id=thread_id, user_id=user_id)
             session.add(thread)
             await session.commit()
